@@ -1,4 +1,5 @@
 import pygame
+import random
 
 pygame.init()
 
@@ -14,6 +15,12 @@ green = (0, 255, 0)
 blue = (0, 0, 255)
 #ball consts
 ball_rad=15
+ball1_x = random.randint(int(screen_width*3/4+ball_rad),screen_width-ball_rad)
+ball1_y = random.randint(ball_rad,screen_height-ball_rad)
+ball1_pos = (ball1_x,ball1_y)
+ball2_x = random.randint(ball_rad,int(screen_width/4-ball_rad))
+ball2_y = random.randint(ball_rad,screen_height-ball_rad)
+ball2_pos = (ball2_x,ball2_y)
 #game loop, runs when the game runs and we put stuff in here
 run = True
 while run:
@@ -25,7 +32,7 @@ while run:
     #setting background
     screen.fill(white)
     #creating balls
-    ball1 = pygame.draw.circle(screen,blue,(screen_width/2,screen_height/2),ball_rad)
-    ball2 = pygame.draw.circle(screen,red,(screen_width/4,screen_height/2),ball_rad)
+    ball1 = pygame.draw.circle(screen,blue,ball1_pos,ball_rad)
+    ball2 = pygame.draw.circle(screen,red,ball2_pos,ball_rad)
 
     pygame.display.update() #updating the display so we can see changes
