@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 
 pygame.init()
 
@@ -41,11 +42,11 @@ while run:
     #checking mouse position every frame
     mouse_x, mouse_y = pygame.mouse.get_pos()
     mouse_pos = (mouse_x, mouse_y)
+    #allowing you to "hit" the ball
     if event.type == pygame.MOUSEBUTTONDOWN:
         if event.button == 1:
             ball1_vx = 0.005*(mouse_x-ball1_x)
             ball1_vy = 0.005*(mouse_y-ball1_y)
-
     #wall bounces
     if ball1_x - ball_rad < 0 or ball1_x + ball_rad > screen_width:
         ball1_vx = -ball1_vx
@@ -55,6 +56,11 @@ while run:
         ball2_vx = -ball2_vx
     if ball2_y - ball_rad < 0 or ball2_y + ball_rad > screen_height:
         ball2_vy = -ball2_vy
+    #ball bounces
+    dist_balls = math.sqrt((ball1_x-ball2_x)**2+(ball1_y-ball2_y)**2)
+    if dist_balls<2*ball_rad:
+        print("they collided")
+        #add math for coliisions
     #updating positions of the balls
     ball1_x += ball1_vx
     ball1_y += ball1_vy
