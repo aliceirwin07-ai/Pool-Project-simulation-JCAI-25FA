@@ -11,16 +11,14 @@ pygame.display.set_caption("Pool Game")
 #colors(NEED TO CHANGE BALL COLORS TO BE LESS UGLY)
 white = (255, 255, 255)
 black = (0,0,0)
-red = (255, 0, 0)
-green = (0, 255, 0)
-blue = (0, 0, 255)
+pool_green = (58,181,3)
 #ball starting position consts
 ball_rad=15
-ball1_x = random.randint(int(screen_width*3/4+ball_rad),screen_width-ball_rad) #start on the right 4th of the screen
-ball1_y = random.randint(ball_rad,screen_height-ball_rad)   #random y pos
+ball1_x = screen_width*3/4
+ball1_y = screen_height/2
 ball1_pos = (ball1_x,ball1_y) #ball pos vector
-ball2_x = random.randint(ball_rad,int(screen_width/4-ball_rad)) #start on the left 4th of the screen
-ball2_y = random.randint(ball_rad,screen_height-ball_rad)   #random y pos
+ball2_x = screen_width/4
+ball2_y = screen_height/2
 ball2_pos = (ball2_x,ball2_y) #ball pos vector
 #ball starting velocity consts
 ball1_speed = 0
@@ -41,6 +39,17 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+        if event.type == pygame.KEYDOWN:    #check if you push a key
+            if event.key == pygame.K_r: #check if you press r for reset
+                #reset vars to starting position
+                ball1_x = screen_width*3/4
+                ball1_y = screen_height/2
+                ball2_x = screen_width/4
+                ball2_y = screen_height/2
+                ball1_vx = 0
+                ball1_vy = 0
+                ball2_vx = 0
+                ball2_vy = 0
 
     #checking mouse position
     mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -48,7 +57,7 @@ while run:
     #allowing you to "hit" the ball
     if event.type == pygame.MOUSEBUTTONDOWN:
         if event.button == 1:   #if left click
-            ball1_vx = 0.005*(mouse_x-ball1_x) #making the velocities proportional to the dist you click from.
+            ball1_vx = 0.005*(mouse_x-ball1_x) #making the vel proportional to the dist you click from.
             ball1_vy = 0.005*(mouse_y-ball1_y)
 
     #friction on the table 
@@ -86,15 +95,14 @@ while run:
 
     #ball bounces
     dist_balls = math.sqrt((ball1_x-ball2_x)**2+(ball1_y-ball2_y)**2) 
-    #FIX COLLISIONS
-    if dist_balls<=2*ball_rad:
-        theta = math.atan2(ball1_y-ball2_y,ball1_x-ball2_x)
+    if dist_balls<=2*ball_rad:  #check if the balls are touching/"inside" each other
+        theta = math.atan2(ball1_y-ball2_y,ball1_x-ball2_x) #angle from right to down
         #use a rotation matrix to turn the problem into the 1d scenario
         rot_ball1_vx = ball1_vx*math.cos(theta)+ball1_vy*math.sin(theta)
         rot_ball1_vy = ball1_vy*math.cos(theta)-ball1_vx*math.sin(theta)
         rot_ball2_vx = ball2_vx*math.cos(theta)+ball2_vy*math.sin(theta)
         rot_ball2_vy = ball2_vy*math.cos(theta)-ball2_vx*math.sin(theta)
-        #switch them because m1=m2
+        #switch rot v1x,v2x because m1=m2
         rot_ball1_vx = ball2_vx*math.cos(theta)+ball2_vy*math.sin(theta)
         rot_ball2_vx = ball1_vx*math.cos(theta)+ball1_vy*math.sin(theta)
         #apply inverse rotation matrix
@@ -111,8 +119,8 @@ while run:
     ball2_y += ball2_vy
     ball2_pos = (ball2_x, ball2_y)
     #drawing balls at their new pos + fill screen
-    screen.fill(white)
-    ball1 = pygame.draw.circle(screen,blue,ball1_pos,ball_rad)
-    ball2 = pygame.draw.circle(screen,red,ball2_pos,ball_rad)
+    screen.fill(pool_green)
+    ball1 = pygame.draw.circle(screen,white,ball1_pos,ball_rad)
+    ball2 = pygame.draw.circle(screen,black,ball2_pos,ball_rad)
     #updating the display so we can see changes
     pygame.display.update()
