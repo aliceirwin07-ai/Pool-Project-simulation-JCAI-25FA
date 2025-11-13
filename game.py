@@ -88,7 +88,20 @@ while run:
     dist_balls = math.sqrt((ball1_x-ball2_x)**2+(ball1_y-ball2_y)**2) 
     #FIX COLLISIONS
     if dist_balls<=2*ball_rad:
-        print("they collided")
+        theta = math.atan2(ball1_y-ball2_y,ball1_x-ball2_x)
+        #use a rotation matrix to turn the problem into the 1d scenario
+        rot_ball1_vx = ball1_vx*math.cos(theta)+ball1_vy*math.sin(theta)
+        rot_ball1_vy = ball1_vy*math.cos(theta)-ball1_vx*math.sin(theta)
+        rot_ball2_vx = ball2_vx*math.cos(theta)+ball2_vy*math.sin(theta)
+        rot_ball2_vy = ball2_vy*math.cos(theta)-ball2_vx*math.sin(theta)
+        #switch them because m1=m2
+        rot_ball1_vx = ball2_vx*math.cos(theta)+ball2_vy*math.sin(theta)
+        rot_ball2_vx = ball1_vx*math.cos(theta)+ball1_vy*math.sin(theta)
+        #apply inverse rotation matrix
+        ball1_vx = rot_ball1_vx*math.cos(theta)-rot_ball1_vy*math.sin(theta)
+        ball1_vy = rot_ball1_vx*math.sin(theta)+rot_ball1_vy*math.cos(theta)
+        ball2_vx = rot_ball2_vx*math.cos(theta)-rot_ball2_vy*math.sin(theta)
+        ball2_vy = rot_ball2_vx*math.sin(theta)+rot_ball2_vy*math.cos(theta)
 
     #updating positions of the balls
     ball1_x += ball1_vx
