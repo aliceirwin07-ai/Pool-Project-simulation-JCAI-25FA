@@ -76,10 +76,28 @@ while run:
     if ball2_y - ball_rad < 0 or ball2_y + ball_rad > screen_height:
         ball2_vy = -ball2_vy
     #ball bounces
-    dist_balls = math.sqrt((ball1_x-ball2_x)**2+(ball1_y-ball2_y)**2)
-    if dist_balls<2*ball_rad:
+    dist_balls = math.sqrt((ball1_x-ball2_x)**2+(ball1_y-ball2_y)**2) 
+    normal_x = (ball1_x-ball2_x)/dist_balls
+    normal_y = (ball1_y-ball2_y)/dist_balls
+    normal = (normal_x,normal_y)    #points to ball2 from ball1
+    delta = (ball1_vx - ball2_vx)*normal_x + (ball1_vy - ball2_vy)*normal_y #scalar of relative velcoity
+
+    #FIX COLLISIONS
+    if dist_balls<=2*ball_rad:
         print("they collided")
-        #add math for coliisions
+
+        # overlap = 2*ball_rad - dist_balls
+        #need to work on this math, possibly do better work on paper?
+        # ball1_vx = ball1_vx - delta * normal_x
+        # ball1_vy = ball1_vy - delta * normal_y
+        # ball2_vx = ball2_vx - delta * normal_x
+        # ball2_vy = ball2_vy - delta * normal_y
+
+        #trying to move balls away from each other if they're inside each other
+        # # ball1_x -= (normal_x * overlap)/2
+        # # ball1_y -= (normal_y * overlap)/2
+        # # ball2_x += (normal_x * overlap)/2
+        # # ball2_y += (normal_y * overlap)/2
     #updating positions of the balls
     ball1_x += ball1_vx
     ball1_y += ball1_vy
