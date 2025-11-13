@@ -51,7 +51,7 @@ while run:
             ball1_vx = 0.005*(mouse_x-ball1_x) #making the velocities proportional to the dist you click from.
             ball1_vy = 0.005*(mouse_y-ball1_y)
 
-    #friction on the table(NEED TO REWORK)  
+    #friction on the table 
     ball1_speed = math.sqrt(ball1_vx**2+ball1_vy**2)
     ball2_speed = math.sqrt(ball2_vx**2+ball2_vy**2)
     #updating direction velocity of the balls
