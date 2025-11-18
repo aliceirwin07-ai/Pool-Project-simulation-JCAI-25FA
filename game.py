@@ -56,8 +56,8 @@ while run:
     #allowing you to "hit" the ball
     if event.type == pygame.MOUSEBUTTONDOWN:
         if event.button == 1:   #if left click
-            ball1_vx = 0.005*(mouse_x-ball1_x) #making the vel proportional to the dist you click from.
-            ball1_vy = 0.005*(mouse_y-ball1_y)
+            ball1_vx = 0.003*(mouse_x-ball1_x) #making the vel proportional to the dist you click from.
+            ball1_vy = 0.003*(mouse_y-ball1_y)
     #friction on the table 
     ball1_speed = math.sqrt(ball1_vx**2+ball1_vy**2)
     ball2_speed = math.sqrt(ball2_vx**2+ball2_vy**2)
