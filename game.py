@@ -8,7 +8,7 @@ screen_height = 500
 screen_width = 1000
 screen = pygame.display.set_mode((screen_width,screen_height))
 pygame.display.set_caption("Pool Game")
-#colors(NEED TO CHANGE BALL COLORS TO BE LESS UGLY)
+#colors
 white = (255, 255, 255)
 black = (0,0,0)
 pool_green = (58,181,3)
@@ -50,7 +50,6 @@ while run:
                 ball1_vy = 0
                 ball2_vx = 0
                 ball2_vy = 0
-
     #checking mouse position
     mouse_x, mouse_y = pygame.mouse.get_pos()
     mouse_pos = (mouse_x, mouse_y)
@@ -59,12 +58,11 @@ while run:
         if event.button == 1:   #if left click
             ball1_vx = 0.005*(mouse_x-ball1_x) #making the vel proportional to the dist you click from.
             ball1_vy = 0.005*(mouse_y-ball1_y)
-
     #friction on the table 
     ball1_speed = math.sqrt(ball1_vx**2+ball1_vy**2)
     ball2_speed = math.sqrt(ball2_vx**2+ball2_vy**2)
-    #updating direction velocity of the balls
-    #checking if we need to apply acceleration
+        #updating direction velocity of the balls
+        #checking if we need to apply acceleration
     if ball1_speed > friction_accel:    #check if speed > accel(if speed is < accel we treat it as being 0 because it's negligible)
         nx = ball1_vx / ball1_speed   # normalized vx
         ny = ball1_vy / ball1_speed   # normalized vy
