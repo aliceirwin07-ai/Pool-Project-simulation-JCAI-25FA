@@ -11,7 +11,7 @@ Libraries used:
   
 Authors:
   Alice Irwin - alice.sc.irwin@gmail.com
-  Jay Chen - Insert email here
+  Jay Chen - orangeeecrush@gmail.com
 
 Acknowledgments
   Long Nguyen - https://www.youtube.com/watch?v=guWIF87CmBg 
